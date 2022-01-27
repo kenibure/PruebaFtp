@@ -135,7 +135,7 @@
 75-->[:unityLibrary] C:\proys_unity\PruebaFtp\PruebaFtp\Temp\gradleOut\unityLibrary\build\intermediates\library_manifest\release\AndroidManifest.xml:65:9-67:68
 76            android:name="unity.build-id"
 76-->[:unityLibrary] C:\proys_unity\PruebaFtp\PruebaFtp\Temp\gradleOut\unityLibrary\build\intermediates\library_manifest\release\AndroidManifest.xml:66:13-42
-77            android:value="3fe2b43f-ad3a-410d-b039-7cf4968b9886" />
+77            android:value="6a866170-0bad-4a3f-a373-38cfad74d433" />
 77-->[:unityLibrary] C:\proys_unity\PruebaFtp\PruebaFtp\Temp\gradleOut\unityLibrary\build\intermediates\library_manifest\release\AndroidManifest.xml:67:13-65
 78    </application>
 79

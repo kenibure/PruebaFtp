@@ -41,16 +41,16 @@ public class EscenaInicial_Controller : MonoBehaviour
 
             conectarAlServidorParaSubir(nombreFicheroGenerado);
             anadirTextoALogEnPantalla("04");
-            subirFichero(request, StaticUtilities.rutaDeGuardadoEnEsteDispositivo, StaticUtilities.nombreArchivoDePrueba);
+            subirFichero(request, StaticUtilities.nombreArchivoDePrueba);
             anadirTextoALogEnPantalla("05");
 
             conectarAlServidorParaDescargar(nombreFicheroGenerado);
             anadirTextoALogEnPantalla("06");
-            descargarFichero(request.GetResponse(), StaticUtilities.rutaDeGuardadoEnEsteDispositivo, nombreFicheroGenerado);
+            descargarFichero(request.GetResponse(), nombreFicheroGenerado);
             anadirTextoALogEnPantalla("07");
-            bool ficheroDescargado = comprobarSiExisteFichero(generarRuta(StaticUtilities.rutaDeGuardadoEnEsteDispositivo, nombreFicheroGenerado));
+            bool ficheroDescargado = comprobarSiExisteFichero(generarRuta(nombreFicheroGenerado));
             
-            anadirTextoALogEnPantalla("07");
+            anadirTextoALogEnPantalla("08");
             if(ficheroDescargado)
             {
                 confirmarProcesoCompletado();
@@ -88,10 +88,10 @@ public class EscenaInicial_Controller : MonoBehaviour
         request.Method = WebRequestMethods.Ftp.UploadFile;
     }
 
-    private void subirFichero(FtpWebRequest request, string rutaEnElDispositivo, string nombreDelArchivoEnElDispositivo)
+    private void subirFichero(FtpWebRequest request, string nombreDelArchivoEnElDispositivo)
     {
         //FileInfo fileInfo = new FileInfo(rutaEnElDispositivo + "/" + nombreDelArchivoEnElDispositivo);
-        FileInfo fileInfo = new FileInfo(generarRuta(rutaEnElDispositivo, nombreDelArchivoEnElDispositivo));
+        FileInfo fileInfo = new FileInfo(generarRuta(nombreDelArchivoEnElDispositivo));
         int buffLength = 2048;
         byte[] buff = new byte[buffLength];
         int contentLen;
@@ -119,17 +119,17 @@ public class EscenaInicial_Controller : MonoBehaviour
         request.Method = WebRequestMethods.Ftp.DownloadFile;
     }
 
-    void descargarFichero(WebResponse request, string rutaEnElDispositivo, string nombreDelArchivoEnElDispositivo)
+    void descargarFichero(WebResponse request, string nombreDelArchivoEnElDispositivo)
     {
         Stream reader = request.GetResponseStream();
         confirmarConexion(); //Si llega hasta aqui significa que hay conexion.
         //if (!Directory.Exists(Path.GetDirectoryName(rutaEnElDispositivo)))
-        if (!Directory.Exists(generarRuta(rutaEnElDispositivo, null)))
+        if (!Directory.Exists(generarRuta(null)))
         {
-            Directory.CreateDirectory(generarRuta(rutaEnElDispositivo, null));
+            Directory.CreateDirectory(generarRuta(null));
         }
 
-        FileStream fileStream = new FileStream(generarRuta(rutaEnElDispositivo, nombreDelArchivoEnElDispositivo), FileMode.Create);
+        FileStream fileStream = new FileStream(generarRuta(nombreDelArchivoEnElDispositivo), FileMode.Create);
         
         int bytesRead = 0;
         byte[] buffer = new byte[2048];
@@ -148,7 +148,6 @@ public class EscenaInicial_Controller : MonoBehaviour
 
     private bool comprobarSiExisteFichero(string path)
     {
-        anadirTextoALogEnPantalla("path => |"+path+"|");
         return File.Exists(path);
     }
 
@@ -166,24 +165,13 @@ public class EscenaInicial_Controller : MonoBehaviour
 
     private void crearFicheroInicial(string field)
     {
-        /*FileStream fileStream = new FileStream(generarRuta(directory, field), FileMode.Create);
-
-        byte[] buffer = new byte[2048];
-
-        fileStream.Write(buffer, 0, 99);
-
-        fileStream.Close();*/
-
-        //string path = generarRuta(directory, field);
-
 #if UNITY_EDITOR
-        string path = generarRuta(null, field);
+        string path = generarRuta(field);
 #else
         // check if file exists in Application.persistentDataPath
         string path = string.Format("{0}/{1}", Application.persistentDataPath, field);
 #endif
 
-        anadirTextoALogEnPantalla("path donde se crea => |" + path + "|");
 
         FileStream fStream = File.Create(path);
         BinaryFormatter binary = new BinaryFormatter();
@@ -191,17 +179,11 @@ public class EscenaInicial_Controller : MonoBehaviour
         fStream.Close();
     }
 
-    private string generarRuta(string directory, string field)
+    private string generarRuta(string field)
     {
-        //string path = Path.Combine(Application.persistentDataPath, directory);
-
-        //string path = directory;
-
-        //string path = Application.dataPath + "/" + directory;
 
         string path = null;
 #if UNITY_EDITOR
-        //path = string.Format(@"Assets/StreamingAssets/{0}", directory);
         path = "Assets/StreamingAssets";
         if (field != null)
         {
@@ -211,21 +193,12 @@ public class EscenaInicial_Controller : MonoBehaviour
         // check if file exists in Application.persistentDataPath
         if (field == null)
         {
-            anadirTextoALogEnPantalla("H01");
             path = Application.persistentDataPath;
         } else {
-            anadirTextoALogEnPantalla("H02");
             path = string.Format("{0}/{1}", Application.persistentDataPath, field);
         }
 
 #endif
-
-        /*if (field != null)
-        {
-            path = path + "/" + field;
-        }*/
-
-        anadirTextoALogEnPantalla("path (02) => |" + path+"|");
 
         return path;
     }

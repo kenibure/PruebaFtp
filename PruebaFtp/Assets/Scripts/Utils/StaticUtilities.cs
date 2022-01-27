@@ -8,8 +8,6 @@ public class StaticUtilities
 {
     public static string ipServidor = "192.168.1.130"; //Es la IP local donde esta el servidor FTP.
     public static string nombreArchivoDePrueba = "file03.txt";
-    //public static string rutaDeGuardadoEnEsteDispositivo = "Assets/StreamingAssets";
-    public static string rutaDeGuardadoEnEsteDispositivo = null;
 
     //Devuelve la IP local del dispositivo.
     public static string obtainLocalIp()

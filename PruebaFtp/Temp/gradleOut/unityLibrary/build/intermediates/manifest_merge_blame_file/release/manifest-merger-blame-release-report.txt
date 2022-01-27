@@ -116,7 +116,7 @@
 65-->C:\proys_unity\PruebaFtp\PruebaFtp\Temp\gradleOut\unityLibrary\src\main\AndroidManifest.xml:17:5-101
 66            android:name="unity.build-id"
 66-->C:\proys_unity\PruebaFtp\PruebaFtp\Temp\gradleOut\unityLibrary\src\main\AndroidManifest.xml:17:16-45
-67            android:value="3fe2b43f-ad3a-410d-b039-7cf4968b9886" />
+67            android:value="6a866170-0bad-4a3f-a373-38cfad74d433" />
 67-->C:\proys_unity\PruebaFtp\PruebaFtp\Temp\gradleOut\unityLibrary\src\main\AndroidManifest.xml:17:46-98
 68    </application>
 69
