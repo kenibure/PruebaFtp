@@ -1,5 +1,5 @@
 # PruebaFtp
-Pruebas de FTP con Unity
+Subida y descarga de ficheros a un FTP local con Unity.
 
 
 ## Objetivos:
